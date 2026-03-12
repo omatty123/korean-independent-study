@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korean Independent Study — Hana Ramos</title>
+    <style>
+        :root {
+            --ink: #1a1a2e;
+            --paper: #faf9f6;
+            --accent: #2d5016;
+            --accent-light: #e8f0e2;
+            --border: #d4d0c8;
+            --muted: #6b6b6b;
+            --highlight: #fff3cd;
+            --success: #d4edda;
+            --success-border: #a3d4a0;
+            --week-bg: #f5f4f0;
+            --quiz-bg: #f0f4f8;
+            --link: #1a5276;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.6;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        /* Header */
+        .site-header {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: start;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--ink);
+        }
+
+        .site-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .site-header h1 span.korean {
+            font-size: 1.4rem;
+            color: var(--muted);
+            display: block;
+            font-weight: 400;
+            margin-top: 0.2rem;
+        }
+
+        .student-info {
+            text-align: right;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .student-info strong { color: var(--ink); }
+
+        /* Progress bar */
+        .progress-section {
+            margin-bottom: 2rem;
+        }
+
+        .progress-section h2 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 0.3rem;
+        }
+
+        /* Course overview */
+        .overview {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .overview-text p {
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .benchmarks {
+            background: var(--accent-light);
+            padding: 1.2rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .benchmarks h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.6rem;
+            color: var(--accent);
+        }
+
+        .benchmarks ul {
+            list-style: none;
+            font-size: 0.88rem;
+        }
+
+        .benchmarks li {
+            padding: 0.3rem 0;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        .benchmarks li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.65rem;
+            width: 8px;
+            height: 8px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+        }
+
+        .benchmarks li.achieved::before {
+            background: var(--accent);
+        }
+
+        /* Resources panel */
+        .resources {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .resource-card {
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+        }
+
+        .resource-card h3 {
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .resource-card .tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
+            background: var(--accent-light);
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-card p {
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-card a {
+            font-size: 0.85rem;
+            color: var(--link);
+        }
+
+        /* Week modules */
+        .week-module {
+            background: var(--week-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1.2rem;
+            overflow: hidden;
+        }
+
+        .week-module.current {
+            border-color: var(--accent);
+            border-width: 2px;
+        }
+
+        .week-module.completed {
+            opacity: 0.85;
+        }
+
+        .week-header {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.2rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .week-header:hover {
+            background: rgba(0,0,0,0.02);
+        }
+
+        .week-number {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            min-width: 60px;
+        }
+
+        .week-module.current .week-number {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .week-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .week-title .korean-subtitle {
+            font-weight: 400;
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+
+        .week-toggle {
+            font-size: 1.2rem;
+            color: var(--muted);
+            transition: transform 0.2s;
+        }
+
+        .week-module.open .week-toggle {
+            transform: rotate(180deg);
+        }
+
+        .week-body {
+            display: none;
+            padding: 0 1.2rem 1.2rem;
+        }
+
+        .week-module.open .week-body {
+            display: block;
+        }
+
+        .week-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .week-section h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .week-section ul {
+            list-style: none;
+            font-size: 0.9rem;
+        }
+
+        .week-section li {
+            padding: 0.25rem 0;
+        }
+
+        .week-section a {
+            color: var(--link);
+            text-decoration: none;
+        }
+
+        .week-section a:hover {
+            text-decoration: underline;
+        }
+
+        .checklist li {
+            padding-left: 1.5rem;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .checklist li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.45rem;
+            width: 14px;
+            height: 14px;
+            border: 2px solid var(--border);
+            border-radius: 3px;
+        }
+
+        .checklist li.checked::before {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .checklist li.checked::after {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 0.45rem;
+            width: 8px;
+            height: 5px;
+            border-left: 2px solid white;
+            border-bottom: 2px solid white;
+            transform: rotate(-45deg);
+            margin-top: 2px;
+        }
+
+        /* Quiz section */
+        .quiz-box {
+            background: var(--quiz-bg);
+            border: 1px solid #c8d6e5;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: 1rem;
+            grid-column: 1 / -1;
+        }
+
+        .quiz-box h4 {
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+            color: var(--ink);
+            border: none;
+            padding: 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 1rem;
+        }
+
+        .quiz-question p {
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .quiz-btn {
+            padding: 0.35rem 0.8rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            font-size: 0.88rem;
+            transition: all 0.15s;
+        }
+
+        .quiz-btn:hover {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .quiz-btn.correct {
+            background: var(--success);
+            border-color: var(--success-border);
+            font-weight: 600;
+        }
+
+        .quiz-btn.wrong {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            text-decoration: line-through;
+        }
+
+        .quiz-feedback {
+            font-size: 0.82rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-score {
+            text-align: right;
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        /* Korean practice */
+        .practice-box {
+            background: white;
+            border: 1px dashed var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: 0.5rem;
+            grid-column: 1 / -1;
+        }
+
+        .practice-box h4 {
+            border: none;
+            padding: 0;
+            margin-bottom: 0.6rem;
+            color: var(--ink);
+        }
+
+        .hangul-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+            gap: 0.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hangul-cell {
+            text-align: center;
+            padding: 0.5rem 0.3rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: all 0.15s;
+            position: relative;
+        }
+
+        .hangul-cell:hover {
+            background: var(--accent-light);
+            border-color: var(--accent);
+        }
+
+        .hangul-cell .romanization {
+            display: none;
+            font-size: 0.65rem;
+            color: var(--muted);
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .hangul-cell.revealed .romanization {
+            display: block;
+        }
+
+        .hangul-note {
+            font-size: 0.8rem;
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        /* Status badges */
+        .status-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
+        }
+
+        .status-badge.upcoming { background: #e9ecef; color: #6b6b6b; }
+        .status-badge.current { background: var(--accent-light); color: var(--accent); font-weight: 700; }
+        .status-badge.completed { background: var(--success); color: #155724; }
+
+        /* Footer */
+        .site-footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .site-footer a { color: var(--link); }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .overview { grid-template-columns: 1fr; }
+            .resources { grid-template-columns: 1fr; }
+            .week-grid { grid-template-columns: 1fr; }
+            .site-header { grid-template-columns: 1fr; }
+            .student-info { text-align: left; }
+        }
+
+        /* Check-in log */
+        .checkin-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .checkin-section h2 {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .checkin-form {
+            display: grid;
+            grid-template-columns: 1fr 2fr auto;
+            gap: 0.5rem;
+            align-items: start;
+        }
+
+        .checkin-form select,
+        .checkin-form textarea,
+        .checkin-form button {
+            font-family: inherit;
+            font-size: 0.88rem;
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+
+        .checkin-form textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .checkin-form button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+        }
+
+        .checkin-form button:hover {
+            opacity: 0.9;
+        }
+
+        .checkin-log {
+            margin-top: 1rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .checkin-entry {
+            display: grid;
+            grid-template-columns: 80px 60px 1fr;
+            gap: 0.5rem;
+            font-size: 0.82rem;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .checkin-entry .date { color: var(--muted); }
+        .checkin-entry .week-ref { font-weight: 600; color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div>
+        <h1>Korean Independent Study
+            <span class="korean">한국어 독립 연구</span>
+        </h1>
+    </div>
+    <div class="student-info">
+        <strong>Hana Ramos</strong><br>
+        10-Week Course<br>
+        Spring 2026
+    </div>
+</header>
+
+<section class="progress-section">
+    <h2>Course Progress</h2>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    </div>
+    <div class="progress-label">
+        <span id="progressText">Week 0 of 10</span>
+        <span id="progressPct">0%</span>
+    </div>
+</section>
+
+<section class="overview">
+    <div class="overview-text">
+        <p><strong>Goal:</strong> Reach basic Korean proficiency in 10 weeks. You'll learn to read and write Hangul, build foundational grammar and vocabulary, hold simple conversations, and understand Korean sentence structure.</p>
+        <p><strong>Primary Textbook:</strong> <a href="https://www.howtostudykorean.com/" target="_blank">How to Study Korean</a> (free, online). Unit 0 (Hangul) + Unit 1 (Lessons 1-25), supplemented with audio from Talk To Me In Korean and video lectures from Coursera.</p>
+        <p><strong>Weekly rhythm:</strong> ~5 hours/week. 2-3 HTSK lessons, 1 TTMIK audio lesson, practice exercises, and a weekly check-in quiz below.</p>
+    </div>
+    <div class="benchmarks">
+        <h3>10-Week Benchmarks</h3>
+        <ul>
+            <li id="bm1">Read and write all Hangul</li>
+            <li id="bm2">Form basic sentences (S-O-V)</li>
+            <li id="bm3">Use particles (은/는, 이/가, 을/를)</li>
+            <li id="bm4">Conjugate verbs (present/past/future)</li>
+            <li id="bm5">Count with both number systems</li>
+            <li id="bm6">Hold a simple self-introduction</li>
+            <li id="bm7">Understand ~300 vocabulary words</li>
+            <li id="bm8">Read a simple Korean paragraph</li>
+        </ul>
+    </div>
+</section>
+
+<section class="resources">
+    <div class="resource-card">
+        <span class="tag">Primary Textbook</span>
+        <h3>How to Study Korean</h3>
+        <p>Comprehensive free grammar lessons with audio. Unit 0 + Unit 1 (25 lessons).</p>
+        <a href="https://www.howtostudykorean.com/" target="_blank">howtostudykorean.com</a>
+    </div>
+    <div class="resource-card">
+        <span class="tag">Audio / Listening</span>
+        <h3>Talk To Me In Korean</h3>
+        <p>Free audio lessons for pronunciation and listening. Level 1 (25 lessons).</p>
+        <a href="https://talktomeinkorean.com/" target="_blank">talktomeinkorean.com</a>
+    </div>
+    <div class="resource-card">
+        <span class="tag">Video Lectures</span>
+        <h3>Yonsei First Step Korean</h3>
+        <p>Free Coursera course from Yonsei University. Great for Hangul and early basics.</p>
+        <a href="https://www.coursera.org/learn/learn-korean" target="_blank">Coursera: First Step Korean</a>
+    </div>
+</section>
+
+<!-- Weekly Modules -->
+<div id="weekModules">
+
+    <!-- WEEK 1 -->
+    <div class="week-module" data-week="1">
+        <div class="week-header" onclick="toggleWeek(this)">
+            <span class="week-number">Week 1</span>
+            <span class="week-title">The Korean Alphabet <span class="korean-subtitle">한글 (Hangul)</span></span>
+            <span class="week-toggle">&#9662;</span>
+        </div>
+        <div class="week-body">
+            <div class="week-grid">
+                <div class="week-section">
+                    <h4>Lessons</h4>
+                    <ul>
+                        <li><a href="https://www.howtostudykorean.com/unit0/" target="_blank">HTSK Unit 0: Learn to Read Korean</a></li>
+                        <li><a href="https://www.coursera.org/learn/learn-korean" target="_blank">Yonsei First Step Korean — Module 1</a></li>
+                        <li><a href="https://talktomeinkorean.com/lesson/level-1-lesson-1/" target="_blank">TTMIK Level 1, Lesson 1: Hello/Thank You</a></li>
+                    </ul>
+                </div>
+                <div class="week-section">
+                    <h4>Goals Checklist</h4>
+                    <ul class="checklist" data-week="1">
+                        <li onclick="toggleCheck(this)" data-item="w1-1">Memorize 14 basic consonants (ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ)</li>
+                        <li onclick="toggleCheck(this)" data-item="w1-2">Memorize 10 basic vowels (ㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣ)</li>
+                        <li onclick="toggleCheck(this)" data-item="w1-3">Practice forming syllable blocks</li>
+                        <li onclick="toggleCheck(this)" data-item="w1-4">Write your name in Hangul</li>
+                        <li onclick="toggleCheck(this)" data-item="w1-5">Learn 5 compound vowels (ㅐㅔㅘㅙㅚ)</li>
+                    </ul>
+                </div>
+
+                <div class="practice-box">
+                    <h4>Hangul Practice — Click to Reveal Romanization</h4>
+                    <div class="hangul-grid">
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㄱ<span class="romanization">g/k</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㄴ<span class="romanization">n</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㄷ<span class="romanization">d/t</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㄹ<span class="romanization">r/l</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅁ<span class="romanization">m</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅂ<span class="romanization">b/p</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅅ<span class="romanization">s</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅇ<span class="romanization">ng/∅</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅈ<span class="romanization">j</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅊ<span class="romanization">ch</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅋ<span class="romanization">k</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅌ<span class="romanization">t</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅍ<span class="romanization">p</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅎ<span class="romanization">h</span></div>
+                    </div>
+                    <div class="hangul-grid">
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅏ<span class="romanization">a</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅑ<span class="romanization">ya</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅓ<span class="romanization">eo</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅕ<span class="romanization">yeo</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅗ<span class="romanization">o</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅛ<span class="romanization">yo</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅜ<span class="romanization">u</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅠ<span class="romanization">yu</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅡ<span class="romanization">eu</span></div>
+                        <div class="hangul-cell" onclick="this.classList.toggle('revealed')">ㅣ<span class="romanization">i</span></div>
+                    </div>
+                    <p class="hangul-note">Click any character to reveal its romanization. Practice until you can identify all without peeking.</p>
+                </div>
+
+                <div class="quiz-box" data-quiz="1">
+                    <h4>Week 1 Check-in Quiz</h4>
+                    <div class="quiz-question" data-correct="b">
+                        <p>1. What sound does ㅂ make?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'b')">b/p</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'b')">d/t</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'b')">m</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'b')">n</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! ㅂ = b/p</div>
+                    </div>
+                    <div class="quiz-question" data-correct="가">
+                        <p>2. Which syllable block is "ga"?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'가')">나</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'가')">가</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'가')">다</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'가')">마</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! ㄱ(g) + ㅏ(a) = 가 (ga)</div>
+                    </div>
+                    <div class="quiz-question" data-correct="10">
+                        <p>3. How many basic vowels are in Hangul?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'10')">8</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'10')">10</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'10')">14</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'10')">12</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! There are 10 basic vowels in Hangul.</div>
+                    </div>
+                    <div class="quiz-score"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 2 -->
+    <div class="week-module" data-week="2">
+        <div class="week-header" onclick="toggleWeek(this)">
+            <span class="week-number">Week 2</span>
+            <span class="week-title">First Sentences <span class="korean-subtitle">기본 문장</span></span>
+            <span class="week-toggle">&#9662;</span>
+        </div>
+        <div class="week-body">
+            <div class="week-grid">
+                <div class="week-section">
+                    <h4>Lessons</h4>
+                    <ul>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-1-8/unit-1-lesson-1/" target="_blank">HTSK Lesson 1: Basic Sentences</a></li>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-1-8/unit-1-lesson-2/" target="_blank">HTSK Lesson 2: Connecting Sentences</a></li>
+                        <li><a href="https://talktomeinkorean.com/lesson/level-1-lesson-2/" target="_blank">TTMIK Level 1, Lesson 2: Yes/No/What</a></li>
+                    </ul>
+                </div>
+                <div class="week-section">
+                    <h4>Goals Checklist</h4>
+                    <ul class="checklist" data-week="2">
+                        <li onclick="toggleCheck(this)" data-item="w2-1">Understand S-O-V sentence order</li>
+                        <li onclick="toggleCheck(this)" data-item="w2-2">Learn subject particles 이/가</li>
+                        <li onclick="toggleCheck(this)" data-item="w2-3">Learn topic particle 은/는</li>
+                        <li onclick="toggleCheck(this)" data-item="w2-4">Use 이다 (to be) in basic sentences</li>
+                        <li onclick="toggleCheck(this)" data-item="w2-5">Learn 30 new vocabulary words</li>
+                    </ul>
+                </div>
+                <div class="quiz-box" data-quiz="2">
+                    <h4>Week 2 Check-in Quiz</h4>
+                    <div class="quiz-question" data-correct="SOV">
+                        <p>1. What is the basic Korean sentence order?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'SOV')">SVO</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'SOV')">SOV</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'SOV')">VSO</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'SOV')">OVS</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! Korean uses Subject-Object-Verb order. "I rice eat" not "I eat rice."</div>
+                    </div>
+                    <div class="quiz-question" data-correct="topic">
+                        <p>2. The particle 은/는 marks the _____ of a sentence.</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'topic')">subject</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'topic')">topic</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'topic')">object</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'topic')">verb</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 은/는 is the topic-marking particle.</div>
+                    </div>
+                    <div class="quiz-question" data-correct="이다">
+                        <p>3. Which verb means "to be" in Korean?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'이다')">하다</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'이다')">있다</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'이다')">이다</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'이다')">가다</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 이다 means "to be."</div>
+                    </div>
+                    <div class="quiz-score"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 3 -->
+    <div class="week-module" data-week="3">
+        <div class="week-header" onclick="toggleWeek(this)">
+            <span class="week-number">Week 3</span>
+            <span class="week-title">Verbs and Adjectives <span class="korean-subtitle">동사와 형용사</span></span>
+            <span class="week-toggle">&#9662;</span>
+        </div>
+        <div class="week-body">
+            <div class="week-grid">
+                <div class="week-section">
+                    <h4>Lessons</h4>
+                    <ul>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-1-8/unit-1-lesson-3/" target="_blank">HTSK Lesson 3: Adjectives / Descriptive Verbs</a></li>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-1-8/unit-1-lesson-4/" target="_blank">HTSK Lesson 4: Action Verbs</a></li>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-1-8/unit-1-lesson-5/" target="_blank">HTSK Lesson 5: Object Particle 을/를</a></li>
+                        <li><a href="https://talktomeinkorean.com/lesson/level-1-lesson-3/" target="_blank">TTMIK Level 1, Lesson 3: Goodbye/See you</a></li>
+                    </ul>
+                </div>
+                <div class="week-section">
+                    <h4>Goals Checklist</h4>
+                    <ul class="checklist" data-week="3">
+                        <li onclick="toggleCheck(this)" data-item="w3-1">Understand verb/adjective stems</li>
+                        <li onclick="toggleCheck(this)" data-item="w3-2">Learn object particle 을/를</li>
+                        <li onclick="toggleCheck(this)" data-item="w3-3">Form sentences with action verbs</li>
+                        <li onclick="toggleCheck(this)" data-item="w3-4">Describe things with adjectives</li>
+                        <li onclick="toggleCheck(this)" data-item="w3-5">Learn 30 new vocabulary words</li>
+                    </ul>
+                </div>
+                <div class="quiz-box" data-quiz="3">
+                    <h4>Week 3 Check-in Quiz</h4>
+                    <div class="quiz-question" data-correct="을/를">
+                        <p>1. Which particle marks the object of a sentence?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'을/를')">은/는</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'을/를')">이/가</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'을/를')">을/를</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'을/를')">에/에서</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 을/를 marks the direct object.</div>
+                    </div>
+                    <div class="quiz-question" data-correct="다">
+                        <p>2. Korean verb/adjective dictionary forms always end in ___.</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'다')">요</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'다')">다</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'다')">는</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'다')">이</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! All Korean verbs and adjectives end in 다 in dictionary form (먹다, 크다, 가다, etc.).</div>
+                    </div>
+                    <div class="quiz-question" data-correct="adjective">
+                        <p>3. In Korean, 크다 (to be big) functions as what part of speech?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'adjective')">noun</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'adjective')">adjective</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'adjective')">adverb</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'adjective')">particle</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 크다 is a descriptive verb (adjective). Korean adjectives conjugate like verbs.</div>
+                    </div>
+                    <div class="quiz-score"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 4 -->
+    <div class="week-module" data-week="4">
+        <div class="week-header" onclick="toggleWeek(this)">
+            <span class="week-number">Week 4</span>
+            <span class="week-title">Conjugation Basics <span class="korean-subtitle">활용의 기초</span></span>
+            <span class="week-toggle">&#9662;</span>
+        </div>
+        <div class="week-body">
+            <div class="week-grid">
+                <div class="week-section">
+                    <h4>Lessons</h4>
+                    <ul>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-1-8/unit-1-lesson-6/" target="_blank">HTSK Lesson 6: Present/Past/Future Conjugation</a></li>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-1-8/unit-1-lesson-7/" target="_blank">HTSK Lesson 7: Particles 에/에서</a></li>
+                        <li><a href="https://talktomeinkorean.com/lesson/level-1-lesson-4/" target="_blank">TTMIK Level 1, Lesson 4: I'm sorry / Excuse me</a></li>
+                        <li><a href="https://talktomeinkorean.com/lesson/level-1-lesson-5/" target="_blank">TTMIK Level 1, Lesson 5: It's/It's not</a></li>
+                    </ul>
+                </div>
+                <div class="week-section">
+                    <h4>Goals Checklist</h4>
+                    <ul class="checklist" data-week="4">
+                        <li onclick="toggleCheck(this)" data-item="w4-1">Conjugate verbs in present tense</li>
+                        <li onclick="toggleCheck(this)" data-item="w4-2">Conjugate verbs in past tense</li>
+                        <li onclick="toggleCheck(this)" data-item="w4-3">Conjugate verbs in future tense</li>
+                        <li onclick="toggleCheck(this)" data-item="w4-4">Understand 에 vs 에서 (location particles)</li>
+                        <li onclick="toggleCheck(this)" data-item="w4-5">Practice with 10 common verbs</li>
+                    </ul>
+                </div>
+                <div class="quiz-box" data-quiz="4">
+                    <h4>Week 4 Check-in Quiz</h4>
+                    <div class="quiz-question" data-correct="았/었">
+                        <p>1. To conjugate past tense, you add _____ to the verb stem.</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'았/었')">ㅂ니다</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'았/었')">았/었</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'았/었')">겠</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'았/었')">고</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 았/었 creates past tense (먹다 → 먹었다).</div>
+                    </div>
+                    <div class="quiz-question" data-correct="에서">
+                        <p>2. "I study at the library." Which particle goes with library? 도서관___</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'에서')">에</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'에서')">에서</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'에서')">을</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'에서')">는</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 에서 marks the location where an action takes place. 에 marks a static location or destination.</div>
+                    </div>
+                    <div class="quiz-question" data-correct="먹었어요">
+                        <p>3. "I ate." = 저는 밥을 _____.</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'먹었어요')">먹어요</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'먹었어요')">먹었어요</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'먹었어요')">먹겠어요</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'먹었어요')">먹다</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 먹었어요 is the polite past tense of 먹다 (to eat).</div>
+                    </div>
+                    <div class="quiz-score"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 5 -->
+    <div class="week-module" data-week="5">
+        <div class="week-header" onclick="toggleWeek(this)">
+            <span class="week-number">Week 5</span>
+            <span class="week-title">Honorifics and Politeness <span class="korean-subtitle">높임말</span></span>
+            <span class="week-toggle">&#9662;</span>
+        </div>
+        <div class="week-body">
+            <div class="week-grid">
+                <div class="week-section">
+                    <h4>Lessons</h4>
+                    <ul>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-1-8/unit-1-lesson-8/" target="_blank">HTSK Lesson 8: Korean Adverbs</a></li>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-9-16/unit-1-lesson-9/" target="_blank">HTSK Lesson 9: Irregulars (ㅂ, ㅡ)</a></li>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-9-16/unit-1-lesson-10/" target="_blank">HTSK Lesson 10: Irregulars (ㄷ, ㅅ, ㅎ)</a></li>
+                        <li><a href="https://talktomeinkorean.com/lesson/level-1-lesson-6/" target="_blank">TTMIK Level 1, Lesson 6: This/That/It</a></li>
+                    </ul>
+                </div>
+                <div class="week-section">
+                    <h4>Goals Checklist</h4>
+                    <ul class="checklist" data-week="5">
+                        <li onclick="toggleCheck(this)" data-item="w5-1">Use adverbs in sentences</li>
+                        <li onclick="toggleCheck(this)" data-item="w5-2">Handle ㅂ-irregular verbs</li>
+                        <li onclick="toggleCheck(this)" data-item="w5-3">Handle ㅡ-irregular verbs</li>
+                        <li onclick="toggleCheck(this)" data-item="w5-4">Understand formal vs. informal speech levels</li>
+                        <li onclick="toggleCheck(this)" data-item="w5-5">MIDPOINT: Review all Weeks 1-4</li>
+                    </ul>
+                </div>
+                <div class="quiz-box" data-quiz="5">
+                    <h4>Midpoint Review Quiz</h4>
+                    <div class="quiz-question" data-correct="ㅂ">
+                        <p>1. 덥다 (to be hot) is an example of which irregular?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'ㅂ')">ㄷ irregular</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'ㅂ')">ㅂ irregular</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'ㅂ')">ㅅ irregular</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'ㅂ')">ㅎ irregular</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 덥다 is ㅂ-irregular: 덥 + 어요 → 더워요.</div>
+                    </div>
+                    <div class="quiz-question" data-correct="빨리">
+                        <p>2. 빠르다 (to be fast). The adverb form is:</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'빨리')">빠르게</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'빨리')">빨리</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'빨리')">빠른</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'빨리')">빠르</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 빨리 (quickly) is the common adverb form.</div>
+                    </div>
+                    <div class="quiz-question" data-correct="object">
+                        <p>3. In 나는 책을 읽었어요, what does 을 mark?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'object')">topic</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'object')">subject</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'object')">object</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'object')">location</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 을 marks 책 (book) as the direct object. "I read a book."</div>
+                    </div>
+                    <div class="quiz-score"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 6 -->
+    <div class="week-module" data-week="6">
+        <div class="week-header" onclick="toggleWeek(this)">
+            <span class="week-number">Week 6</span>
+            <span class="week-title">Numbers and Counting <span class="korean-subtitle">숫자와 세기</span></span>
+            <span class="week-toggle">&#9662;</span>
+        </div>
+        <div class="week-body">
+            <div class="week-grid">
+                <div class="week-section">
+                    <h4>Lessons</h4>
+                    <ul>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-9-16/unit-1-lesson-11/" target="_blank">HTSK Lesson 11: Sino-Korean Numbers</a></li>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-9-16/unit-1-lesson-12/" target="_blank">HTSK Lesson 12: Native Korean Numbers / Counters</a></li>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-9-16/unit-1-lesson-13/" target="_blank">HTSK Lesson 13: Telling Time</a></li>
+                        <li><a href="https://talktomeinkorean.com/lesson/level-1-lesson-7/" target="_blank">TTMIK Level 1, Lesson 7: Numbers (Sino)</a></li>
+                    </ul>
+                </div>
+                <div class="week-section">
+                    <h4>Goals Checklist</h4>
+                    <ul class="checklist" data-week="6">
+                        <li onclick="toggleCheck(this)" data-item="w6-1">Count 1-100 in Sino-Korean (일, 이, 삼...)</li>
+                        <li onclick="toggleCheck(this)" data-item="w6-2">Count 1-99 in Native Korean (하나, 둘, 셋...)</li>
+                        <li onclick="toggleCheck(this)" data-item="w6-3">Use counters (개, 명, 마리, 권)</li>
+                        <li onclick="toggleCheck(this)" data-item="w6-4">Tell time in Korean</li>
+                        <li onclick="toggleCheck(this)" data-item="w6-5">Say dates and months</li>
+                    </ul>
+                </div>
+                <div class="quiz-box" data-quiz="6">
+                    <h4>Week 6 Check-in Quiz</h4>
+                    <div class="quiz-question" data-correct="sino">
+                        <p>1. Phone numbers use which number system?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'sino')">Native Korean</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'sino')">Sino-Korean</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'sino')">Both mixed</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'sino')">Neither</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! Phone numbers, dates, and money use Sino-Korean numbers.</div>
+                    </div>
+                    <div class="quiz-question" data-correct="세">
+                        <p>2. 셋 becomes _____ when used before a counter.</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'세')">셋</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'세')">세</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'세')">삼</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'세')">석</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 셋 → 세 before counters (세 개, 세 명).</div>
+                    </div>
+                    <div class="quiz-question" data-correct="both">
+                        <p>3. Telling time uses which number systems?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'both')">Native only</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'both')">Sino only</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'both')">Native hours, Sino minutes</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'both')">Sino hours, Native minutes</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! Hours use Native Korean (한 시, 두 시), minutes use Sino-Korean (삼십 분).</div>
+                    </div>
+                    <div class="quiz-score"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 7 -->
+    <div class="week-module" data-week="7">
+        <div class="week-header" onclick="toggleWeek(this)">
+            <span class="week-number">Week 7</span>
+            <span class="week-title">Wanting, Liking, Giving <span class="korean-subtitle">원하다, 좋아하다, 주다</span></span>
+            <span class="week-toggle">&#9662;</span>
+        </div>
+        <div class="week-body">
+            <div class="week-grid">
+                <div class="week-section">
+                    <h4>Lessons</h4>
+                    <ul>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-9-16/unit-1-lesson-14/" target="_blank">HTSK Lesson 14: Want (고 싶다)</a></li>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-9-16/unit-1-lesson-15/" target="_blank">HTSK Lesson 15: Purpose/Reason (위해, 때문에)</a></li>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-9-16/unit-1-lesson-16/" target="_blank">HTSK Lesson 16: Giving/Receiving (주다/받다)</a></li>
+                        <li><a href="https://talktomeinkorean.com/lesson/level-1-lesson-8/" target="_blank">TTMIK Level 1, Lesson 8: It's NOT / I DON'T have</a></li>
+                    </ul>
+                </div>
+                <div class="week-section">
+                    <h4>Goals Checklist</h4>
+                    <ul class="checklist" data-week="7">
+                        <li onclick="toggleCheck(this)" data-item="w7-1">Express wants with -고 싶다</li>
+                        <li onclick="toggleCheck(this)" data-item="w7-2">Give reasons with 때문에</li>
+                        <li onclick="toggleCheck(this)" data-item="w7-3">Use 주다 (give) and 받다 (receive)</li>
+                        <li onclick="toggleCheck(this)" data-item="w7-4">Negate with 안 and -지 않다</li>
+                        <li onclick="toggleCheck(this)" data-item="w7-5">Write 5 sentences expressing wants</li>
+                    </ul>
+                </div>
+                <div class="quiz-box" data-quiz="7">
+                    <h4>Week 7 Check-in Quiz</h4>
+                    <div class="quiz-question" data-correct="고 싶어요">
+                        <p>1. "I want to eat" = 먹_____.</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'고 싶어요')">고 싶어요</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'고 싶어요')">을 원해요</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'고 싶어요')">으려고</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'고 싶어요')">겠어요</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 먹고 싶어요 = "I want to eat." Stem + 고 싶다.</div>
+                    </div>
+                    <div class="quiz-question" data-correct="안">
+                        <p>2. The short negation form places _____ before the verb.</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'안')">못</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'안')">안</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'안')">불</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'안')">비</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 안 먹어요 = "I don't eat." 못 means "can't" (different meaning).</div>
+                    </div>
+                    <div class="quiz-score"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 8 -->
+    <div class="week-module" data-week="8">
+        <div class="week-header" onclick="toggleWeek(this)">
+            <span class="week-number">Week 8</span>
+            <span class="week-title">Can/Can't and Ability <span class="korean-subtitle">할 수 있다/없다</span></span>
+            <span class="week-toggle">&#9662;</span>
+        </div>
+        <div class="week-body">
+            <div class="week-grid">
+                <div class="week-section">
+                    <h4>Lessons</h4>
+                    <ul>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-17-25-2/unit-1-lesson-17/" target="_blank">HTSK Lesson 17: Connecting (~고)</a></li>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-17-25-2/unit-1-lesson-18/" target="_blank">HTSK Lesson 18: ~ㄹ/을 수 있다/없다 (Can/Can't)</a></li>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-17-25-2/unit-1-lesson-19/" target="_blank">HTSK Lesson 19: Making Verbs into Nouns (~는 것)</a></li>
+                        <li><a href="https://talktomeinkorean.com/lesson/level-1-lesson-9/" target="_blank">TTMIK Level 1, Lesson 9: Topic/Subject Particles</a></li>
+                    </ul>
+                </div>
+                <div class="week-section">
+                    <h4>Goals Checklist</h4>
+                    <ul class="checklist" data-week="8">
+                        <li onclick="toggleCheck(this)" data-item="w8-1">Connect clauses with -고</li>
+                        <li onclick="toggleCheck(this)" data-item="w8-2">Express ability with -ㄹ 수 있다</li>
+                        <li onclick="toggleCheck(this)" data-item="w8-3">Express inability with -ㄹ 수 없다</li>
+                        <li onclick="toggleCheck(this)" data-item="w8-4">Nominalize verbs with -는 것</li>
+                        <li onclick="toggleCheck(this)" data-item="w8-5">Write a short paragraph (3-5 sentences)</li>
+                    </ul>
+                </div>
+                <div class="quiz-box" data-quiz="8">
+                    <h4>Week 8 Check-in Quiz</h4>
+                    <div class="quiz-question" data-correct="ㄹ 수 있어요">
+                        <p>1. "I can speak Korean" = 한국어를 말할 _____.</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'ㄹ 수 있어요')">ㄹ 수 있어요</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'ㄹ 수 있어요')">고 싶어요</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'ㄹ 수 있어요')">았어요</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'ㄹ 수 있어요')">는 것이에요</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! -ㄹ 수 있다 expresses ability/possibility.</div>
+                    </div>
+                    <div class="quiz-question" data-correct="것">
+                        <p>2. To turn a verb into a noun, you add -는 _____.</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'것')">수</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'것')">것</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'것')">데</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'것')">줄</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 먹는 것 = "eating" (the act of eating). -는 것 nominalizes verbs.</div>
+                    </div>
+                    <div class="quiz-score"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 9 -->
+    <div class="week-module" data-week="9">
+        <div class="week-header" onclick="toggleWeek(this)">
+            <span class="week-number">Week 9</span>
+            <span class="week-title">Complex Sentences <span class="korean-subtitle">복합 문장</span></span>
+            <span class="week-toggle">&#9662;</span>
+        </div>
+        <div class="week-body">
+            <div class="week-grid">
+                <div class="week-section">
+                    <h4>Lessons</h4>
+                    <ul>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-17-25-2/unit-1-lesson-20/" target="_blank">HTSK Lesson 20: Comparatives</a></li>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-17-25-2/unit-1-lesson-21/" target="_blank">HTSK Lesson 21: Asking Questions</a></li>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-17-25-2/unit-1-lesson-22/" target="_blank">HTSK Lesson 22: ~ㄹ/을 것이다 (Future)</a></li>
+                        <li><a href="https://talktomeinkorean.com/lesson/level-1-lesson-10/" target="_blank">TTMIK Level 1, Lesson 10: Have/Don't have</a></li>
+                    </ul>
+                </div>
+                <div class="week-section">
+                    <h4>Goals Checklist</h4>
+                    <ul class="checklist" data-week="9">
+                        <li onclick="toggleCheck(this)" data-item="w9-1">Make comparisons (더, 보다)</li>
+                        <li onclick="toggleCheck(this)" data-item="w9-2">Ask different types of questions</li>
+                        <li onclick="toggleCheck(this)" data-item="w9-3">Use future tense -ㄹ 것이다</li>
+                        <li onclick="toggleCheck(this)" data-item="w9-4">Express existence with 있다/없다</li>
+                        <li onclick="toggleCheck(this)" data-item="w9-5">Prepare self-introduction for final</li>
+                    </ul>
+                </div>
+                <div class="quiz-box" data-quiz="9">
+                    <h4>Week 9 Check-in Quiz</h4>
+                    <div class="quiz-question" data-correct="보다">
+                        <p>1. "More than" in Korean comparisons uses the particle _____.</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'보다')">보다</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'보다')">부터</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'보다')">까지</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'보다')">보고</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 한국어가 일본어보다 더 어려워요 = "Korean is harder than Japanese."</div>
+                    </div>
+                    <div class="quiz-question" data-correct="있어요">
+                        <p>2. "I have a book" = 책이 _____.</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'있어요')">있어요</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'있어요')">없어요</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'있어요')">이에요</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'있어요')">아니에요</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 있다 = "to exist/to have." 없다 = "to not exist/to not have."</div>
+                    </div>
+                    <div class="quiz-score"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 10 -->
+    <div class="week-module" data-week="10">
+        <div class="week-header" onclick="toggleWeek(this)">
+            <span class="week-number">Week 10</span>
+            <span class="week-title">Review and Final Assessment <span class="korean-subtitle">복습과 최종 평가</span></span>
+            <span class="week-toggle">&#9662;</span>
+        </div>
+        <div class="week-body">
+            <div class="week-grid">
+                <div class="week-section">
+                    <h4>Review Topics</h4>
+                    <ul>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-17-25-2/unit-1-lesson-23/" target="_blank">HTSK Lesson 23: ~면 (If/When)</a></li>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-17-25-2/unit-1-lesson-24/" target="_blank">HTSK Lesson 24: Verb Ending Review</a></li>
+                        <li><a href="https://www.howtostudykorean.com/unit1/unit-1-lessons-17-25-2/unit-1-lesson-25/" target="_blank">HTSK Lesson 25: Unit 1 Test/Review</a></li>
+                        <li>Comprehensive review of all 25 lessons</li>
+                    </ul>
+                </div>
+                <div class="week-section">
+                    <h4>Final Assessment Checklist</h4>
+                    <ul class="checklist" data-week="10">
+                        <li onclick="toggleCheck(this)" data-item="w10-1">Read a Korean paragraph aloud</li>
+                        <li onclick="toggleCheck(this)" data-item="w10-2">Write a self-introduction (자기소개)</li>
+                        <li onclick="toggleCheck(this)" data-item="w10-3">Complete HTSK Unit 1 Test</li>
+                        <li onclick="toggleCheck(this)" data-item="w10-4">Demonstrate 10-sentence conversation</li>
+                        <li onclick="toggleCheck(this)" data-item="w10-5">Vocabulary quiz: 50 words</li>
+                    </ul>
+                </div>
+                <div class="quiz-box" data-quiz="10">
+                    <h4>Comprehensive Final Quiz</h4>
+                    <div class="quiz-question" data-correct="하면">
+                        <p>1. "If I do" = _____ (하다 + ~면)</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'하면')">하면</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'하면')">하고</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'하면')">해서</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'하면')">하는</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 하 + 면 = 하면 (if I do).</div>
+                    </div>
+                    <div class="quiz-question" data-correct="저는 학생이에요">
+                        <p>2. "I am a student" in polite speech:</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'저는 학생이에요')">나는 학생이다</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'저는 학생이에요')">저는 학생이에요</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'저는 학생이에요')">제가 학생입니다</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'저는 학생이에요')">나는 학생이야</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! 저 (humble "I") + 는 (topic) + 학생 (student) + 이에요 (polite "to be").</div>
+                    </div>
+                    <div class="quiz-question" data-correct="6">
+                        <p>3. How many speech levels does Korean have?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-btn" onclick="checkAnswer(this,'6')">2</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'6')">4</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'6')">6</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'6')">8</button>
+                        </div>
+                        <div class="quiz-feedback">Correct! Korean has 6 speech levels, though modern usage mainly uses 2-3 (해요체, 합쇼체, 해체).</div>
+                    </div>
+                    <div class="quiz-score"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Check-in Log -->
+<section class="checkin-section">
+    <h2>Weekly Check-in Log</h2>
+    <div class="checkin-form">
+        <select id="checkinWeek">
+            <option value="1">Week 1</option>
+            <option value="2">Week 2</option>
+            <option value="3">Week 3</option>
+            <option value="4">Week 4</option>
+            <option value="5">Week 5</option>
+            <option value="6">Week 6</option>
+            <option value="7">Week 7</option>
+            <option value="8">Week 8</option>
+            <option value="9">Week 9</option>
+            <option value="10">Week 10</option>
+        </select>
+        <textarea id="checkinNote" placeholder="How did this week go? What was challenging? What clicked?"></textarea>
+        <button onclick="addCheckin()">Log</button>
+    </div>
+    <div class="checkin-log" id="checkinLog"></div>
+</section>
+
+<footer class="site-footer">
+    <span>Korean Independent Study, Spring 2026</span>
+    <span>Primary text: <a href="https://www.howtostudykorean.com/" target="_blank">How to Study Korean</a></span>
+</footer>
+
+<script>
+    // State management with localStorage
+    const STORAGE_KEY = 'korean-study-state';
+
+    function loadState() {
+        try {
+            return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { checks: {}, checkins: [] };
+        } catch { return { checks: {}, checkins: [] }; }
+    }
+
+    function saveState(state) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    // Initialize
+    const state = loadState();
+
+    // Restore checkboxes
+    document.querySelectorAll('.checklist li').forEach(li => {
+        if (state.checks[li.dataset.item]) {
+            li.classList.add('checked');
+        }
+    });
+
+    // Restore check-in log
+    renderCheckins();
+
+    // Update progress
+    updateProgress();
+
+    function toggleWeek(header) {
+        header.closest('.week-module').classList.toggle('open');
+    }
+
+    function toggleCheck(li) {
+        li.classList.toggle('checked');
+        state.checks[li.dataset.item] = li.classList.contains('checked');
+        saveState(state);
+        updateProgress();
+    }
+
+    function updateProgress() {
+        const total = document.querySelectorAll('.checklist li').length;
+        const checked = document.querySelectorAll('.checklist li.checked').length;
+        const pct = total > 0 ? Math.round((checked / total) * 100) : 0;
+
+        document.getElementById('progressFill').style.width = pct + '%';
+        document.getElementById('progressPct').textContent = pct + '%';
+
+        // Figure out current week based on checks
+        let currentWeek = 1;
+        for (let w = 1; w <= 10; w++) {
+            const weekItems = document.querySelectorAll(`.checklist[data-week="${w}"] li`);
+            const weekChecked = document.querySelectorAll(`.checklist[data-week="${w}"] li.checked`);
+            if (weekChecked.length === weekItems.length && weekItems.length > 0) {
+                currentWeek = Math.min(w + 1, 10);
+            }
+        }
+        document.getElementById('progressText').textContent = `Week ${currentWeek} of 10`;
+    }
+
+    // Quiz logic
+    function checkAnswer(btn, correct) {
+        const question = btn.closest('.quiz-question');
+        if (question.dataset.answered) return;
+
+        const expected = question.dataset.correct;
+        const feedback = question.querySelector('.quiz-feedback');
+
+        if (btn.textContent.trim() === expected || btn.textContent.trim() === correct) {
+            btn.classList.add('correct');
+            feedback.classList.add('show');
+            feedback.style.color = '#155724';
+        } else {
+            btn.classList.add('wrong');
+            // Highlight correct answer
+            question.querySelectorAll('.quiz-btn').forEach(b => {
+                if (b.textContent.trim() === expected) b.classList.add('correct');
+            });
+            feedback.classList.add('show');
+            feedback.style.color = '#856404';
+            feedback.textContent = 'Not quite. ' + feedback.textContent.replace('Correct! ', '');
+        }
+        question.dataset.answered = 'true';
+
+        // Update quiz score
+        const quizBox = btn.closest('.quiz-box');
+        const questions = quizBox.querySelectorAll('.quiz-question[data-answered]');
+        const correctCount = quizBox.querySelectorAll('.quiz-btn.correct').length;
+        const totalQ = quizBox.querySelectorAll('.quiz-question').length;
+        if (questions.length === totalQ) {
+            quizBox.querySelector('.quiz-score').textContent = `Score: ${correctCount}/${totalQ}`;
+        }
+    }
+
+    // Check-in log
+    function addCheckin() {
+        const week = document.getElementById('checkinWeek').value;
+        const note = document.getElementById('checkinNote').value.trim();
+        if (!note) return;
+
+        state.checkins.unshift({
+            date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+            week: week,
+            note: note
+        });
+        saveState(state);
+        renderCheckins();
+        document.getElementById('checkinNote').value = '';
+    }
+
+    function renderCheckins() {
+        const log = document.getElementById('checkinLog');
+        log.innerHTML = state.checkins.map(c =>
+            `<div class="checkin-entry">
+                <span class="date">${c.date}</span>
+                <span class="week-ref">Wk ${c.week}</span>
+                <span>${c.note}</span>
+            </div>`
+        ).join('');
+    }
+
+    // Auto-open current week (first non-completed)
+    document.addEventListener('DOMContentLoaded', () => {
+        for (let w = 1; w <= 10; w++) {
+            const weekItems = document.querySelectorAll(`.checklist[data-week="${w}"] li`);
+            const weekChecked = document.querySelectorAll(`.checklist[data-week="${w}"] li.checked`);
+            if (weekChecked.length < weekItems.length) {
+                document.querySelector(`.week-module[data-week="${w}"]`).classList.add('open', 'current');
+                break;
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
