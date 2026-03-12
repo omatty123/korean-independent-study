@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources — Korean Independent Study</title>
+    <style>
+        :root {
+            --ink: #1a1a2e;
+            --paper: #faf9f6;
+            --accent: #2d5016;
+            --accent-light: #e8f0e2;
+            --border: #d4d0c8;
+            --muted: #6b6b6b;
+            --link: #1a5276;
+            --week-bg: #f5f4f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.6;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        .breadcrumb {
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .breadcrumb a {
+            color: var(--link);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover { text-decoration: underline; }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.3rem;
+        }
+
+        h1 span.korean {
+            font-size: 1.4rem;
+            color: var(--muted);
+            display: block;
+            font-weight: 400;
+            margin-top: 0.2rem;
+        }
+
+        .page-intro {
+            font-size: 0.95rem;
+            color: var(--muted);
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--ink);
+        }
+
+        h2 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h2 span.section-note {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: var(--muted);
+            margin-left: 0.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        thead th {
+            text-align: left;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+            padding: 0.5rem 0.6rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        tbody td {
+            padding: 0.55rem 0.6rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        tbody tr:hover {
+            background: var(--week-bg);
+        }
+
+        td a {
+            color: var(--link);
+            text-decoration: none;
+        }
+
+        td a:hover { text-decoration: underline; }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.12rem 0.4rem;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .tag-free { background: var(--accent-light); color: var(--accent); }
+        .tag-partial { background: #fff3cd; color: #856404; }
+        .tag-paid { background: #f8d7da; color: #721c24; }
+        .tag-primary { background: var(--accent); color: white; }
+
+        .course-title {
+            font-weight: 600;
+        }
+
+        .course-desc {
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-top: 0.15rem;
+        }
+
+        .rec-badge {
+            display: inline-block;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.1rem 0.35rem;
+            border-radius: 3px;
+            background: var(--accent);
+            color: white;
+            margin-left: 0.3rem;
+            vertical-align: middle;
+        }
+
+        .note-box {
+            background: var(--accent-light);
+            border-left: 3px solid var(--accent);
+            padding: 0.8rem 1rem;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 1.5rem;
+            font-size: 0.88rem;
+        }
+
+        .note-box strong { color: var(--accent); }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        @media (max-width: 700px) {
+            table { font-size: 0.82rem; }
+            thead th, tbody td { padding: 0.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="breadcrumb">
+    <a href="index.html">&larr; Back to Course Home</a>
+</nav>
+
+<h1>Resources <span class="korean">학습 자료</span></h1>
+<p class="page-intro">Free and low-cost online Korean courses, apps, and tools. Everything here is available online. Items marked "Primary" are what we use in our 10-week course.</p>
+
+<div class="note-box">
+    <strong>Our primary textbook</strong> is <a href="https://www.howtostudykorean.com/" target="_blank">How to Study Korean</a> (Unit 0 + Unit 1). The resources below are all supplementary or alternative options to explore on your own.
+</div>
+
+<!-- Structured Self-Study -->
+<h2>Structured Self-Study Courses <span class="section-note">full curricula, all free</span></h2>
+<table>
+    <thead>
+        <tr>
+            <th>Course</th>
+            <th>Provider</th>
+            <th>Format</th>
+            <th>Cost</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <a href="https://www.howtostudykorean.com/" target="_blank" class="course-title">How to Study Korean</a> <span class="rec-badge">Primary</span>
+                <div class="course-desc">25 lessons per unit with audio for every word and sentence. Our main textbook.</div>
+            </td>
+            <td>Independent</td>
+            <td>Text + audio</td>
+            <td><span class="tag tag-free">Free</span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://ysk.upenn.domains/ysk1/" target="_blank" class="course-title">You Speak Korean! Books 1-2</a>
+                <div class="course-desc">Rigorous OER textbook from UPenn's Korean program. 21 lessons across two books. <a href="https://ysk.upenn.domains/ysk2/" target="_blank">Book 2</a></div>
+            </td>
+            <td>U of Pennsylvania</td>
+            <td>Online textbook</td>
+            <td><span class="tag tag-free">Free</span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://www.youtube.com/user/gobillykorean" target="_blank" class="course-title">Go Billy Korean</a>
+                <div class="course-desc">100 video episodes from Hangul through conversational A1. Clear explanations. <a href="https://gobillykorean.com/new-beginner-korean-video-course-for-free/" target="_blank">Free course page</a></div>
+            </td>
+            <td>YouTube</td>
+            <td>Video (100 eps)</td>
+            <td><span class="tag tag-free">Free</span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://learnkorean24.com/course/" target="_blank" class="course-title">LearnKorean24</a>
+                <div class="course-desc">60 lessons across 3 levels with downloadable PDFs for each lesson.</div>
+            </td>
+            <td>Independent</td>
+            <td>Text + PDFs</td>
+            <td><span class="tag tag-free">Free</span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://talktomeinkorean.com/" target="_blank" class="course-title">Talk To Me In Korean</a> <span class="rec-badge">Supplement</span>
+                <div class="course-desc">Level 1 (25 audio lessons) free. Best for listening and pronunciation practice.</div>
+            </td>
+            <td>TTMIK (Seoul)</td>
+            <td>Audio / podcast</td>
+            <td><span class="tag tag-free">Free</span> <span class="tag tag-partial">Paid extras</span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://open.umn.edu/opentextbooks/textbooks/1195" target="_blank" class="course-title">Beginning Korean 1</a>
+                <div class="course-desc">OER textbook with companion YouTube lectures. 7 chapters, novice level.</div>
+            </td>
+            <td>U of Iowa</td>
+            <td>Text + video</td>
+            <td><span class="tag tag-free">Free</span></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- University Video Courses -->
+<h2>University Video Courses <span class="section-note">Coursera, free to audit</span></h2>
+<table>
+    <thead>
+        <tr>
+            <th>Course</th>
+            <th>University</th>
+            <th>Duration</th>
+            <th>Cost</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <a href="https://www.coursera.org/learn/learn-korean" target="_blank" class="course-title">First Step Korean</a> <span class="rec-badge">Supplement</span>
+                <div class="course-desc">Hangul and early basics. Excellent video production from a top Korean university.</div>
+            </td>
+            <td>Yonsei</td>
+            <td>6 modules, ~17 hrs</td>
+            <td><span class="tag tag-free">Free audit</span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://www.coursera.org/learn/learn-speak-korean1" target="_blank" class="course-title">Learn to Speak Korean 1</a>
+                <div class="course-desc">Introductions, food, shopping. Follows First Step Korean.</div>
+            </td>
+            <td>Yonsei</td>
+            <td>6 modules, ~31 hrs</td>
+            <td><span class="tag tag-free">Free audit</span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://www.coursera.org/learn/korean-beginners" target="_blank" class="course-title">A Bridge to the World: Beginners</a>
+                <div class="course-desc">Oral expression and grammar through everyday dialogues. 4.83/5 stars.</div>
+            </td>
+            <td>Sungkyunkwan</td>
+            <td>6 weeks, ~17 hrs</td>
+            <td><span class="tag tag-free">Free audit</span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://www.coursera.org/learn/korean-101-essential-expressions" target="_blank" class="course-title">Korean 101: Essential Expressions</a>
+                <div class="course-desc">Hangeul, greetings, daily expressions. True beginner, no prior knowledge.</div>
+            </td>
+            <td>Sungkyunkwan</td>
+            <td>5 weeks</td>
+            <td><span class="tag tag-free">Free audit</span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://www.coursera.org/learn/the-korean-alphabet-an-introduction-to-hangeul" target="_blank" class="course-title">The Korean Alphabet: Intro to Hangeul</a>
+                <div class="course-desc">History and creation principles of Hangeul. Cultural and linguistic.</div>
+            </td>
+            <td>Sungkyunkwan</td>
+            <td>4 weeks</td>
+            <td><span class="tag tag-free">Free audit</span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://www.coursera.org/learn/learn-useful-korean" target="_blank" class="course-title">Useful Korean Expressions</a>
+                <div class="course-desc">Situational: leisure, food, clothing, transportation. 4 modules.</div>
+            </td>
+            <td>Sungkyunkwan</td>
+            <td>4 modules</td>
+            <td><span class="tag tag-free">Free audit</span></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- FutureLearn -->
+<h2>FutureLearn Courses <span class="section-note">free with limited access window</span></h2>
+<table>
+    <thead>
+        <tr>
+            <th>Course</th>
+            <th>University</th>
+            <th>Duration</th>
+            <th>Cost</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <a href="https://www.futurelearn.com/courses/introduction-to-korean" target="_blank" class="course-title">Learn Korean: Introduction 1</a>
+                <div class="course-desc">Basic conversations, phrases, greetings, vocabulary, numbers, grammar.</div>
+            </td>
+            <td>Hanyang</td>
+            <td>6 weeks, 3 hrs/wk</td>
+            <td><span class="tag tag-free">Free</span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://www.futurelearn.com/courses/introduction-to-korean-2" target="_blank" class="course-title">Learn Korean: Introduction 2</a>
+                <div class="course-desc">Continuation of Introduction 1.</div>
+            </td>
+            <td>Hanyang</td>
+            <td>6 weeks</td>
+            <td><span class="tag tag-free">Free</span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://www.futurelearn.com/courses/starting-korean-beginners" target="_blank" class="course-title">Starting Korean: Beginners I</a>
+                <div class="course-desc">Essential expressions, conversational skills, cultural insights.</div>
+            </td>
+            <td>Sungkyunkwan</td>
+            <td>4 weeks, 2 hrs/wk</td>
+            <td><span class="tag tag-free">Free</span></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Apps -->
+<h2>Apps <span class="section-note">daily practice tools</span></h2>
+<table>
+    <thead>
+        <tr>
+            <th>App</th>
+            <th>Best For</th>
+            <th>Cost</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <a href="https://www.duolingo.com/course/ko/en/Learn-Korean" target="_blank" class="course-title">Duolingo Korean</a>
+                <div class="course-desc">Gamified daily drills. 65 skills. Good for building a daily habit. Weak on grammar explanations.</div>
+            </td>
+            <td>Reading, listening, daily practice</td>
+            <td><span class="tag tag-free">Free</span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://www.lingodeer.com/course/kr/en/Learn-Korean" target="_blank" class="course-title">LingoDeer</a>
+                <div class="course-desc">Better grammar explanations than Duolingo. Designed for Asian languages. First unit free.</div>
+            </td>
+            <td>Grammar + vocabulary</td>
+            <td><span class="tag tag-partial">First unit free</span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://www.memrise.com/en/learn-korean" target="_blank" class="course-title">Memrise</a>
+                <div class="course-desc">Native speaker video clips, spaced repetition. Limited free tier.</div>
+            </td>
+            <td>Vocabulary drilling</td>
+            <td><span class="tag tag-partial">Limited free</span></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- TOPIK -->
+<h2>TOPIK Test Prep <span class="section-note">for later, when you're ready</span></h2>
+<table>
+    <thead>
+        <tr>
+            <th>Resource</th>
+            <th>What's There</th>
+            <th>Cost</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <a href="https://topikexam.com/en" target="_blank" class="course-title">TopikExam.com</a>
+                <div class="course-desc">630 questions for TOPIK I, AI-powered explanations, 122 video lectures. No signup needed.</div>
+            </td>
+            <td>Practice questions + video</td>
+            <td><span class="tag tag-free">Free</span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://www.topikguide.com/topik-mock-tests/" target="_blank" class="course-title">TOPIK Guide</a>
+                <div class="course-desc">40 mock tests online, 22 past exam PDFs with audio. Instant results.</div>
+            </td>
+            <td>Mock tests + past papers</td>
+            <td><span class="tag tag-free">Free</span></td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://www.koreantopik.com/" target="_blank" class="course-title">KoreanTopik.com</a>
+                <div class="course-desc">TOPIK and KIIP materials. Past papers through the 103rd exam.</div>
+            </td>
+            <td>Past papers + study guides</td>
+            <td><span class="tag tag-free">Free</span></td>
+        </tr>
+    </tbody>
+</table>
+
+<footer>
+    <a href="index.html">&larr; Back to Course Home</a>
+</footer>
+
+</body>
+</html>
