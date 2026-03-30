@@ -715,13 +715,13 @@
 
                 <div class="quiz-box" data-quiz="1">
                     <h4>Week 1 Check-in Quiz</h4>
-                    <div class="quiz-question" data-correct="b">
+                    <div class="quiz-question" data-correct="b/p">
                         <p>1. What sound does ㅂ make?</p>
                         <div class="quiz-options">
-                            <button class="quiz-btn" onclick="checkAnswer(this,'b')">b/p</button>
-                            <button class="quiz-btn" onclick="checkAnswer(this,'b')">d/t</button>
-                            <button class="quiz-btn" onclick="checkAnswer(this,'b')">m</button>
-                            <button class="quiz-btn" onclick="checkAnswer(this,'b')">n</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'b/p')">b/p</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'b/p')">d/t</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'b/p')">m</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'b/p')">n</button>
                         </div>
                         <div class="quiz-feedback">Correct! ㅂ = b/p</div>
                     </div>
@@ -978,13 +978,13 @@
                 </div>
                 <div class="quiz-box" data-quiz="5">
                     <h4>Midpoint Review Quiz</h4>
-                    <div class="quiz-question" data-correct="ㅂ">
+                    <div class="quiz-question" data-correct="ㅂ irregular">
                         <p>1. 덥다 (to be hot) is an example of which irregular?</p>
                         <div class="quiz-options">
-                            <button class="quiz-btn" onclick="checkAnswer(this,'ㅂ')">ㄷ irregular</button>
-                            <button class="quiz-btn" onclick="checkAnswer(this,'ㅂ')">ㅂ irregular</button>
-                            <button class="quiz-btn" onclick="checkAnswer(this,'ㅂ')">ㅅ irregular</button>
-                            <button class="quiz-btn" onclick="checkAnswer(this,'ㅂ')">ㅎ irregular</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'ㅂ irregular')">ㄷ irregular</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'ㅂ irregular')">ㅂ irregular</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'ㅂ irregular')">ㅅ irregular</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'ㅂ irregular')">ㅎ irregular</button>
                         </div>
                         <div class="quiz-feedback">Correct! 덥다 is ㅂ-irregular: 덥 + 어요 → 더워요.</div>
                     </div>
@@ -1044,13 +1044,13 @@
                 </div>
                 <div class="quiz-box" data-quiz="6">
                     <h4>Week 6 Check-in Quiz</h4>
-                    <div class="quiz-question" data-correct="sino">
+                    <div class="quiz-question" data-correct="Sino-Korean">
                         <p>1. Phone numbers use which number system?</p>
                         <div class="quiz-options">
-                            <button class="quiz-btn" onclick="checkAnswer(this,'sino')">Native Korean</button>
-                            <button class="quiz-btn" onclick="checkAnswer(this,'sino')">Sino-Korean</button>
-                            <button class="quiz-btn" onclick="checkAnswer(this,'sino')">Both mixed</button>
-                            <button class="quiz-btn" onclick="checkAnswer(this,'sino')">Neither</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'Sino-Korean')">Native Korean</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'Sino-Korean')">Sino-Korean</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'Sino-Korean')">Both mixed</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'Sino-Korean')">Neither</button>
                         </div>
                         <div class="quiz-feedback">Correct! Phone numbers, dates, and money use Sino-Korean numbers.</div>
                     </div>
@@ -1064,13 +1064,13 @@
                         </div>
                         <div class="quiz-feedback">Correct! 셋 → 세 before counters (세 개, 세 명).</div>
                     </div>
-                    <div class="quiz-question" data-correct="both">
+                    <div class="quiz-question" data-correct="Native hours, Sino minutes">
                         <p>3. Telling time uses which number systems?</p>
                         <div class="quiz-options">
-                            <button class="quiz-btn" onclick="checkAnswer(this,'both')">Native only</button>
-                            <button class="quiz-btn" onclick="checkAnswer(this,'both')">Sino only</button>
-                            <button class="quiz-btn" onclick="checkAnswer(this,'both')">Native hours, Sino minutes</button>
-                            <button class="quiz-btn" onclick="checkAnswer(this,'both')">Sino hours, Native minutes</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'Native hours, Sino minutes')">Native only</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'Native hours, Sino minutes')">Sino only</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'Native hours, Sino minutes')">Native hours, Sino minutes</button>
+                            <button class="quiz-btn" onclick="checkAnswer(this,'Native hours, Sino minutes')">Sino hours, Native minutes</button>
                         </div>
                         <div class="quiz-feedback">Correct! Hours use Native Korean (한 시, 두 시), minutes use Sino-Korean (삼십 분).</div>
                     </div>
@@ -1416,6 +1416,7 @@
             btn.classList.add('correct');
             feedback.classList.add('show');
             feedback.style.color = '#155724';
+            question.dataset.result = 'correct';
         } else {
             btn.classList.add('wrong');
             // Highlight correct answer
@@ -1425,13 +1426,14 @@
             feedback.classList.add('show');
             feedback.style.color = '#856404';
             feedback.textContent = 'Not quite. ' + feedback.textContent.replace('Correct! ', '');
+            question.dataset.result = 'wrong';
         }
         question.dataset.answered = 'true';
 
         // Update quiz score
         const quizBox = btn.closest('.quiz-box');
         const questions = quizBox.querySelectorAll('.quiz-question[data-answered]');
-        const correctCount = quizBox.querySelectorAll('.quiz-btn.correct').length;
+        const correctCount = quizBox.querySelectorAll('.quiz-question[data-result="correct"]').length;
         const totalQ = quizBox.querySelectorAll('.quiz-question').length;
         if (questions.length === totalQ) {
             quizBox.querySelector('.quiz-score').textContent = `Score: ${correctCount}/${totalQ}`;
@@ -1456,13 +1458,26 @@
 
     function renderCheckins() {
         const log = document.getElementById('checkinLog');
-        log.innerHTML = state.checkins.map(c =>
-            `<div class="checkin-entry">
-                <span class="date">${c.date}</span>
-                <span class="week-ref">Wk ${c.week}</span>
-                <span>${c.note}</span>
-            </div>`
-        ).join('');
+        log.replaceChildren();
+
+        state.checkins.forEach(c => {
+            const entry = document.createElement('div');
+            entry.className = 'checkin-entry';
+
+            const date = document.createElement('span');
+            date.className = 'date';
+            date.textContent = c.date;
+
+            const week = document.createElement('span');
+            week.className = 'week-ref';
+            week.textContent = `Wk ${c.week}`;
+
+            const note = document.createElement('span');
+            note.textContent = c.note;
+
+            entry.append(date, week, note);
+            log.appendChild(entry);
+        });
     }
 
     // Auto-open current week (first non-completed)
